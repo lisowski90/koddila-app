@@ -23,7 +23,7 @@ public class TaskMapper {
                 task.getId(),
                 task.getTitle(),
                 task.getContent()
-                );
+        );
     }
 
     public List<TaskDto> mapToTaskDtoList(final List<Task> taskList) {

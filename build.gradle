@@ -1,7 +1,8 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.7.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version '2.2.7.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+    id 'war'
 }
 
 group = 'com.crud'
@@ -9,7 +10,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
@@ -20,6 +21,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 }
 
 test {

@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/trello")
@@ -20,15 +18,9 @@ public class TrelloController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
     public void getTrelloBoards() throws TaskNotFoundException {
-        List<Optional<List<TrelloBoardDto>>> trelloBoards1 = trelloClient.getTrelloBoards();
+        List<TrelloBoardDto> trelloBoards1 = trelloClient.getTrelloBoards();
 
-        List<List<TrelloBoardDto>> trelloBoards = trelloBoards1.stream()
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toList());
-
-        trelloBoards.stream()
-                .flatMap(trelloBoardDtos -> trelloBoardDtos.stream())
+        trelloBoards1.stream()
                 .filter(trelloBoardDto -> trelloBoardDto.getName().contains("Kodilla"))
                 .filter(trelloBoardDto -> trelloBoardDto.getId() != null & trelloBoardDto.getName() != null)
                 .map(trelloBoardDto -> trelloBoardDto.getName() + " " + trelloBoardDto.getId())

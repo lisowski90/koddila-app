@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +22,6 @@ public class CreatedTrelloCard {
     @JsonProperty("shortUrl")
     private String shortUrl;
 
-    @JsonProperty
-    private List<BadgesDto> badgesDtoList;
+    //@JsonProperty
+    //private List<BadgesDto> badgesDtoList;
 }

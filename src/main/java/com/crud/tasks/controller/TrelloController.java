@@ -20,28 +20,8 @@ public class TrelloController {
     private TrelloClient trelloClient;
 
     @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
-    public void getTrelloBoards() throws TaskNotFoundException {
-        List<TrelloBoardDto> trelloBoards1 = trelloClient.getTrelloBoards();
-
-        trelloBoards1.stream()
-                .filter(trelloBoardDto -> trelloBoardDto.getName().contains("Kodilla"))
-                .filter(trelloBoardDto -> trelloBoardDto.getId() != null & trelloBoardDto.getName() != null)
-                .map(trelloBoardDto -> trelloBoardDto.getName() + " " + trelloBoardDto.getId())
-                .forEach(System.out::println);
-
-        // GET request
-        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
-
-        trelloBoards.forEach(trelloBoardDto -> {
-
-            System.out.println(trelloBoardDto.getName() + " - " + trelloBoardDto.getId());
-
-            System.out.println("This board contains lists: ");
-
-            trelloBoardDto.getLists().forEach(trelloList ->
-                    System.out.println(trelloList.getName() + " - " + trelloList.getId() + " - " + trelloList.isClosed()));
-
-        });
+    public List<TrelloBoardDto> getTrelloBoards(){
+        return trelloClient.getTrelloBoards();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createTrelloCard")

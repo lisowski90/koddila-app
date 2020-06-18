@@ -68,7 +68,7 @@ public class TrelloClientTest {
         //Given
         TrelloCardDto trelloCardDto = new TrelloCardDto(
                 "Test task",
-                "Test description",
+                "Test Description",
                 "top",
                 "test_id"
         );
@@ -76,7 +76,7 @@ public class TrelloClientTest {
         URI uri = new URI("http://test.com/cards?key=test&token=test&name=Test%20task&desc=Test%20Description&pos=top&idList=test_id");
 
         CreatedTrelloCard createdTrelloCard = new CreatedTrelloCard(
-                "Test_task",
+                "Test task",
                 "1",
                 "http://test.com"
         );
@@ -88,7 +88,7 @@ public class TrelloClientTest {
         CreatedTrelloCard newCard = trelloClient.createNewCard(trelloCardDto);
 
         //Then
-        assertEquals(1, newCard.getId());
+        assertEquals("1", newCard.getId());
         assertEquals("Test task", newCard.getName());
         assertEquals("http://test.com", newCard.getShortUrl());
     }

@@ -48,15 +48,15 @@ public class TrelloClient {
 
     public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto) {
 
-        URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/cards/")
+        URI uri = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/cards")
                 .queryParam("key", trelloConfig.getTrelloKey())
                 .queryParam("token", trelloConfig.getTrelloToken())
                 .queryParam("name", trelloCardDto.getName())
-                .queryParam("desc", trelloCardDto.getDescription())
+                .queryParam("desc", trelloCardDto.getDesc())
                 .queryParam("pos", trelloCardDto.getPos())
                 .queryParam("idList", trelloCardDto.getIdList()).build().encode().toUri();
 
-        return(restTemplate.postForObject(url, null, CreatedTrelloCard.class));
+        return(restTemplate.postForObject(uri, null, CreatedTrelloCard.class));
 
     }
 }

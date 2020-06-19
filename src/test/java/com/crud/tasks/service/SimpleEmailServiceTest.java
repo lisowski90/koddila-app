@@ -25,13 +25,12 @@ public class SimpleEmailServiceTest {
     public void shouldSendMail() {
 
         //Given
-        Mail mail = new Mail("test@test.com", "Test", "Test message", "");
+        Mail mail = new Mail("test@test.com", "Test", "Test message");
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
-        if (mail.getToCc().contains("@")) {mailMessage.setTo(mail.getToCc());}
-        mailMessage.setTo(mail.getSubject());
-        mailMessage.setTo(mail.getMessage());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mail.getMessage());
 
         //When
         simpleEmailService.send(mail);

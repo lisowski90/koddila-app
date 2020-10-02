@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,6 +35,32 @@ public class TrelloClientFacadeTest {
     private TrelloMapper trelloMapper;
 
     @Test
+    public void shouldFetchEmptyBoard() {
+        //Given
+        List<TrelloListDto> trelloLists = new ArrayList<>();
+        List<TrelloBoardDto> trelloBoards = new ArrayList<>();
+        List<TrelloList> mappedTrelloLists = new ArrayList<>();
+        List<TrelloBoard> mappedTrelloBoards = new ArrayList<>();
+
+        trelloLists.add(new TrelloListDto("1","s",false));
+        trelloBoards.add(new TrelloBoardDto("1","s",trelloLists));
+        mappedTrelloLists.add(new TrelloList("1","s",false));
+        mappedTrelloBoards.add(new TrelloBoard("1","s",mappedTrelloLists));
+
+        when(trelloService.fetchTrelloBoard()).thenReturn(trelloBoards);
+        when(trelloMapper.mapToBoardsDto(anyList())).thenReturn(new ArrayList<>());
+        when(trelloMapper.mapToBoards(trelloBoards)).thenReturn(mappedTrelloBoards);
+        when(trelloValidator.validateTrelloBoards(mappedTrelloBoards)).thenReturn(new ArrayList<>());
+
+        //When
+        List<TrelloBoardDto> trelloBoardDtos = trelloFacade.fetchTrelloBoards();
+
+        //Then
+        assertNotNull(trelloBoardDtos);
+        assertEquals(0, trelloBoardDtos.size());
+    }
+
+    @Test
     public void shouldFetchTrelloBoards() {
         //Given
         List<TrelloListDto> trelloLists = new ArrayList<>();
@@ -47,7 +74,7 @@ public class TrelloClientFacadeTest {
         mappedTrelloBoards.add(new TrelloBoard("1","s",mappedTrelloLists));
 
         when(trelloService.fetchTrelloBoard()).thenReturn(trelloBoards);
-        when(trelloMapper.mapToBoardsDto(mappedTrelloBoards)).thenReturn(trelloBoards);
+        when(trelloMapper.mapToBoardsDto(anyList())).thenReturn(trelloBoards);
         when(trelloMapper.mapToBoards(trelloBoards)).thenReturn(mappedTrelloBoards);
         when(trelloValidator.validateTrelloBoards(mappedTrelloBoards)).thenReturn(mappedTrelloBoards);
 
